@@ -14,65 +14,88 @@ namespace NbaFantasyCalc
         public const double asists = 1.5;
         public const int steals = 2;
         public const int blocks = 2;
-        public const int turnover = -2;
+        public const int TO = -2;
         public const double fga = -0.45;
         public const double fg = 1;
         public const double fta = -0.75;
         public const double ft = 1;
         public const double benchPointsRate = 0.5;
 
-        public int PointsCalc(Player player)
+        public static int PointsCalc(Player player)
         {
-            return points * player.PTS;
+            return points * (player.Scores.Sum(x => x.PTS));
         }
 
-        public int ThreesCalc(Player player)
+        public static int ThreesCalc(Player player)
         {
-            return threes * player.num3P;
+            return threes * player.Scores.Sum(x => x.num3P);
         }
 
-        public double ReboundsCalc(Player player)
+        public static double ReboundsCalc(Player player)
         {
-            return rebounds * player.TRB;
+            return rebounds * (player.Scores.Sum(x => x.TRB));
         }
 
-        public double AsistsCalc(Player player)
+        public static double AsistsCalc(Player player)
         {
-            return asists * player.AST;
+            return asists * (player.Scores.Sum(x => x.AST));
         }
 
-        public int StealsCalc(Player player)
+        public static int StealsCalc(Player player)
         {
-            return steals * player.STL;
+            return steals * (player.Scores.Sum(x => x.STL));
         }
 
-        public int BlocksCalc(Player player)
+        public static int BlocksCalc(Player player)
         {
-            return blocks * player.BLK;
+            return blocks * (player.Scores.Sum(x => x.BLK));
         }
 
-        public int TOCalc(Player player)
+        public static int TOCalc(Player player)
         {
-            return turnover * player.TOV;
+            return TO * (player.Scores.Sum(x => x.TOV));
         }
 
-        public double FieldGoalCalc(Player player)
+        public static double FieldGoalCalc(Player player)
         {
-            return (fg * player.FG) + (fga * player.FGA);
+            return (fg * (player.Scores.Sum(x=>x.FG))) + (fga * (player.Scores.Sum(x => x.FGA)));
         }
-        public double FreeThrowCalc(Player player)
+        public static double FreeThrowCalc(Player player)
         {
-            return (ft * player.FT) + (fta * player.FTA);
-        }
-
-        public decimal PlayerFromStarting5PointsTotal(Player player)
-        {
-            return Convert.ToDecimal(PointsCalc(player) + ThreesCalc(player) + ReboundsCalc(player) + AsistsCalc(player) + StealsCalc(player) + BlocksCalc(player) + TOCalc(player) + FieldGoalCalc(player) + FreeThrowCalc(player));
+            return (fg * (player.Scores.Sum(x => x.FT))) + (fga * (player.Scores.Sum(x => x.FTA)));
         }
 
-        public decimal PlayerFromBenchPointsTotal(Player player)
+        public static decimal StartingPlayerPoints(Player player)
         {
-            return Convert.ToDecimal((PointsCalc(player) + ThreesCalc(player) + ReboundsCalc(player) + AsistsCalc(player) + StealsCalc(player) + BlocksCalc(player) + TOCalc(player) + FieldGoalCalc(player) + FreeThrowCalc(player)) * 0.5);
+            decimal totalPoints = Convert.ToDecimal(player.Scores.Sum(score =>
+                points * score.PTS +
+                threes * score.num3P +
+                rebounds * score.TRB +
+                asists * score.AST +
+                steals * score.STL +
+                blocks * score.BLK +
+                TO * score.TOV +
+                (fg * score.FG + fga * score.FGA) +
+                (ft * score.FT + fta * score.FTA)
+            ));
+
+            return totalPoints;
+        }
+
+        public static decimal BenchPlayerPoints (Player player)
+        {
+            int points = PointsCalc(player);
+            int threes = ThreesCalc(player);
+            double rebounds = ReboundsCalc(player);
+            double assists = AsistsCalc(player);
+            int steals = StealsCalc(player);
+            int blocks = BlocksCalc(player);
+            int turnovers = TOCalc(player);
+            double fieldGoals = FieldGoalCalc(player);
+            double freeThrows = FreeThrowCalc(player);
+
+            decimal totalPoints = Convert.ToDecimal((points + threes + rebounds + assists + steals + blocks + turnovers + fieldGoals + freeThrows) * benchPointsRate);
+            return totalPoints;
         }
 
         public decimal TeamPoints(Team team)
@@ -85,12 +108,12 @@ namespace NbaFantasyCalc
 
             foreach (var player in starting5)
             {
-                points = points + PlayerFromStarting5PointsTotal(player);
+                points = points + StartingPlayerPoints(player);
             }
 
             foreach (var player in bench)
             {
-                points = points + PlayerFromBenchPointsTotal(player);
+                points = points + BenchPlayerPoints(player);
             }
 
             return points;

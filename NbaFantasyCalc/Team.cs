@@ -9,6 +9,7 @@ namespace NbaFantasyCalc
 {
     public class Team
     {
+        public string Name { get; set; }
         public Player p1 { get; set; }
         public Player p2 { get; set; }
         public Player p3 { get; set; }
@@ -30,18 +31,13 @@ namespace NbaFantasyCalc
             this.p8Bench = p8Bench;
         }
 
-        //public decimal TeamPoints() //działa
-        //{
-        //    PointsCalculator pointsCalculator = new PointsCalculator();            
-        //    return pointsCalculator.TeamPoints(this);
-        //}
-
-        public decimal TeamPoints() //dziala
+        public decimal TeamPoints() //działa
         {
             PointsCalculator pointsCalculator = new PointsCalculator();
-            Team team = new Team(p1, p2, p3, p4, p5, p6Bench, p7Bench, p8Bench);
-            return pointsCalculator.TeamPoints(team);
+            return pointsCalculator.TeamPoints(this);
         }
+
+
 
 
 

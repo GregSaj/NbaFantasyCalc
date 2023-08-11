@@ -21,9 +21,9 @@ namespace NbaFantasyCalc
         public const double ft = 1;
         public const double benchPointsRate = 0.5;
 
-        public static int PointsCalc(List<Player> players, string playerName)
+        public static int PointsCalc(List<Score> scores, string playerName)
         {
-            return players.Where(p => p.Name == playerName).Select(x => x.PTS).Sum();
+            return scores.Where(p => p.BasketballPlayer.Name == playerName).Select(x => x.PTS).Sum();
         }
 
         public static int ThreesCalc(List<Player> players, string playerName)
