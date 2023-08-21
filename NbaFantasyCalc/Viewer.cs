@@ -26,10 +26,10 @@ namespace NbaFantasyCalc
         {
             foreach (var player in players)
             {
-                Console.WriteLine(player.Name.ToString());
+                Console.WriteLine($"{player.Name.ToString(), -30} Team: {player.Team.ToString()}");
                 foreach (var game in player.Scores)
                 {
-                    Console.WriteLine($"Rk: {game.Rk,-3} Name: {game.BasketballPlayer.Name,-30} Pts: {game.PTS,-3} Rebound: {game.TRB,-3} Assists: {game.AST,-3} FG: {game.FG,-3} FGA: {game.FGA,-3} FT: {game.FT,-2} FTA: {game.FTA,-2} 3P: {game.num3P,-3} 3PA: {game.num3PA,-3} Steals: {game.STL} Blocks: {game.BLK} TO: {game.TOV} Date: {game.Date.ToString("dd-MM-yyyy")}");
+                    Console.WriteLine($"Rk: {game.Rk,-3} Oponnent: {game.Opp,-10} Pts: {game.PTS,-3} Rebound: {game.TRB,-3} Assists: {game.AST,-3} FG: {game.FG,-3} FGA: {game.FGA,-3} FT: {game.FT,-2} FTA: {game.FTA,-2} 3P: {game.num3P,-3} 3PA: {game.num3PA,-3} Steals: {game.STL} Blocks: {game.BLK} TO: {game.TOV} Date: {game.Date.ToString("dd-MM-yyyy")}");
                 }
 
                 

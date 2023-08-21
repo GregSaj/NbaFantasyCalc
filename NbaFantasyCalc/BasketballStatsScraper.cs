@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class BasketballStatsScraper
 {
-    private static Dictionary<string, Player> playersDictionary = new Dictionary<string, Player>();
+    private static Dictionary<string, Player> playersDictionary = new Dictionary<string, Player>(); //jak to działa, że jest sprwadzane w 
     public static List<Score> ScrapeBasketballStats(int month, int day, int year, int range)
     {
         int dayInLink = 0;
@@ -125,15 +125,17 @@ public class BasketballStatsScraper
 
                 // Pobierz zawodnika z słownika i przypisz go do wyniku
                 Player player = playersDictionary[playerName];
+                player.Team = rowData[1];
                 score = new Score(player);
                 scores.Add(score);
                 player.AddScore(score);
+                
             }
 
             // Przypisujemy odpowiednie wartości z listy rowData do pól obiektu Score
             score.Rk = rkCounter;
             score.Tm = rowData[1];
-            score.Opp = rowData[3];
+            score.Opp = rowData[3];            
             score.MP = rowData[5];
             score.FG = ConvertToInt(rowData[6]);
             score.FGA = ConvertToInt(rowData[7]);
@@ -156,7 +158,8 @@ public class BasketballStatsScraper
             score.GmSc = ConvertToDouble(rowData[24]);
             score.Date = matchDate;
             score.Player_additional = rowData[25];          
-          
+            
+            
 
             rkCounter++; // Zwiększamy licznik numerków Rk dla następnego gracza
         }
@@ -254,6 +257,8 @@ public class BasketballStatsScraper
         List<Player> playersWithScores = playersDictionary.Values.ToList();
         return playersWithScores;
     }
+
+    
 
 }
 

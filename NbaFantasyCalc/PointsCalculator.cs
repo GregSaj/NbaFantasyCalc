@@ -23,7 +23,7 @@ namespace NbaFantasyCalc
 
         public static int PointsCalc(Player player)
         {
-            return points * (player.Scores.Sum(x => x.PTS));
+            return points * player.Scores.Sum(x => x.PTS);
         }
 
         public static int ThreesCalc(Player player)

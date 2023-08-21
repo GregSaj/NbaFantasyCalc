@@ -16,7 +16,7 @@ namespace NbaFantasyCalc
 
         public Player(string name)
         {
-            Name = name;
+            Name = name;            
             Scores = new List<Score>();
         }
 

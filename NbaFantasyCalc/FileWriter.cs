@@ -88,12 +88,14 @@ namespace NbaFantasyCalc
             return JsonSerializer.Deserialize<List<Score>>(jsonContent);
         }     
         
-        public static void JsonPlayersSerializaer(List<Player> players) 
+        public static void JsonPlayersSerializaer(List<Player> players) // problem z object cycle
         {
             string fileName = "nba-fantasy-calc-players-range.json";
             string jsonString = JsonSerializer.Serialize(players);
             File.WriteAllText(fileName, jsonString);
         }
+
+
         
     }
 }
