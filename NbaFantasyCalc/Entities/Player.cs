@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace NbaFantasyCalc
+namespace NbaFantasyCalc.Entities
 {
-    public class Player : Score
+    public class Player
     {
+
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Team { get; set; }
-   
         public List<Score> Scores { get; set; }
 
         public Player(string name)
         {
-            Name = name;            
+
+            Name = name;
             Scores = new List<Score>();
         }
 
         public void AddScore(Score score)
         {
             Scores.Add(score);
-            score.BasketballPlayer = this;
+            score.Player = this;
         }
 
         public decimal StartingPlayerPoints() //działa

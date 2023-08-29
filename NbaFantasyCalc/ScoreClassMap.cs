@@ -1,5 +1,5 @@
 ﻿using CsvHelper.Configuration;
-using NbaFantasyCalc;
+using NbaFantasyCalc.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace NbaFantasyCalc
 {
-    public class PlayerClassMap : ClassMap<Player>
+    public class ScoreClassMap : ClassMap<Score>
     {
-        public PlayerClassMap()
+        public ScoreClassMap()
         {
             Map(m => m.Rk).Name("Rk");
-            Map(m => m.Name).Name("Player");
+            Map(m => m.Player).Name("Player");
             Map(m => m.Tm).Name("Tm");        
             Map(m => m.Opp).Name("Opp");       
             Map(m => m.MP).Name("MP");

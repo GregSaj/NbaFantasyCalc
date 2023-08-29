@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Office2010.PowerPoint;
+using NbaFantasyCalc.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

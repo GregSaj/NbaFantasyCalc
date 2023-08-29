@@ -1,15 +1,26 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NbaFantasyCalc
+namespace NbaFantasyCalc.Entities
 {
     public class Score
     {
-        public int Rk { get; set; }
-        public Player BasketballPlayer { get; set; }
+
+        public int Id { get; set; }
+        public int Rk { get; set; }        
+        public Player Player { get; set; }
+        //public int PlayerId { get; set; }
+        public string PlayerName 
+        {
+            get { return Player.Name; }
+            set { Player.Name = value; }
+
+        } 
         public string Tm { get; set; }
         public string Opp { get; set; }
         public string MP { get; set; }
@@ -37,15 +48,7 @@ namespace NbaFantasyCalc
 
         public Score(Player player)
         {
-            this.BasketballPlayer = player;
-        }
-        public Score()
-        {
-            
-        }
-       
-
-
-
+            Player = player;
+        }    
     }
 }

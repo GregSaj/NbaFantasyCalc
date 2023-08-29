@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 using HtmlAgilityPack;
-using NbaFantasyCalc;
+using NbaFantasyCalc.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class BasketballStatsScraper
@@ -112,7 +112,7 @@ public class BasketballStatsScraper
             string playerName = rowData[0];
 
             // Sprawdzamy, czy istnieje już obiekt typu Score dla danego gracza
-            Score score = scores.FirstOrDefault(s => s.BasketballPlayer != null && s.BasketballPlayer.Name == playerName);
+            Score score = scores.FirstOrDefault(s => s.Player != null && s.Player.Name == playerName);
 
             if (score == null)
             {
@@ -240,14 +240,14 @@ public class BasketballStatsScraper
     public static List<Player> ScrapePlayers(string url)
     {
         List<Score> scores = ScrapeBasketballStats(url);
-        List<Player> players = scores.Select(score => score.BasketballPlayer).ToList();
+        List<Player> players = scores.Select(score => score.Player).ToList();
         return players;
     }
    
 
     public static List<Player> GetPlayersFromScores(List<Score> scores)
     {
-        List<Player> players = scores.Select(score => score.BasketballPlayer).ToList();
+        List<Player> players = scores.Select(score => score.Player).ToList();
         return players;
     }
 

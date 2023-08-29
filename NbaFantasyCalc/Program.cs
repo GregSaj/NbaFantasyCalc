@@ -1,4 +1,9 @@
-﻿using DocumentFormat.OpenXml.Vml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Office2010.Ink;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
+using Microsoft.EntityFrameworkCore;
+using NbaFantasyCalc.Entities;
+using System.Diagnostics.Metrics;
 
 namespace NbaFantasyCalc
 {
@@ -11,10 +16,169 @@ namespace NbaFantasyCalc
             //FileWriter.JsonWriterTimeSpan(scores);
             //var scoresFromJson = FileWriter.JsonDeserializeToScores();
             Viewer.ScoresViewer(scores);
-            
-            var players = BasketballStatsScraper.GetPlayersFromScores(scores);
 
-            Viewer.PlayersViewer(players);
+            //var players = BasketballStatsScraper.GetPlayersFromScores(scores);
+
+            //Viewer.PlayersViewer(players);
+
+            var shais = scores.Where(x => x.Player.Name == "Shai Gilgeous-Alexander").ToList();
+
+            Viewer.ScoresViewer(shais);
+
+            var context = new ScoreContext();
+
+            //var playersFromDB = context.Players.ToList();
+
+            //foreach (var playerz in playersFromDB)
+            //{
+            //    context.Remove(playerz);
+            //}
+
+            //var scoresFromDB = context.Scores.ToList();
+
+            //foreach (var score in scoresFromDB)
+            //{
+            //    context.Remove(score);
+            //}
+
+            //context.SaveChanges();
+
+
+            foreach (var score in scores)
+            {
+                //var existingPlayer = context.Players.FirstOrDefault(p => p.Name == score.BasketballPlayer.Name);
+
+                //if (existingPlayer == null)
+                //{
+                //    // Tworzymy nowego gracza tylko jeśli go jeszcze nie ma
+                //    existingPlayer = new Player(score.BasketballPlayer.Name)
+                //    {
+                //        Team = score.BasketballPlayer.Team
+                //    };
+                //    context.Players.Add(existingPlayer);
+
+                //    context.SaveChanges();
+                //}
+
+
+                context.Scores.Add(score);
+                //{
+                //    Rk = score.Rk,
+                //    Player = score.Player,
+                //    PlayerName = score.Player.Name,
+                //    Tm = score.Tm,
+                //    Opp = score.Opp,
+                //    MP = score.MP,
+                //    FG = score.FG,
+                //    FGA = score.FGA,
+                //    FGper = score.FGper,
+                //    num3P = score.num3P,
+                //    num3PA = score.num3PA,
+                //    num3Pper = score.num3Pper,
+                //    FT = score.FT,
+                //    FTA = score.FTA,
+                //    ORB = score.ORB,
+                //    DRB = score.DRB,
+                //    TRB = score.TRB,
+                //    AST = score.AST,
+                //    STL = score.STL,
+                //    BLK = score.BLK,
+                //    TOV = score.TOV,
+                //    PF = score.PF,
+                //    PTS = score.PTS,
+                //    GmSc = score.GmSc,
+                //    Date = score.Date,
+                //    Player_additional = score.Player_additional,
+                //    FTper = score.FTper,
+
+                //}) ;
+
+            }
+
+            context.SaveChanges();
+
+
+
+
+
+            //Viewer.ScoresViewer(scoresFromDB);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //using (var context2 = new ScoreContext())
+            //{
+            //    foreach (var score in scores)
+            //    {
+            //        // Attach the existing BasketballPlayer to the context if it's not already attached
+            //        if (score.BasketballPlayer != null && context2.Entry(score.BasketballPlayer).State == EntityState.Detached)
+            //        {
+            //            context2.Attach(score.BasketballPlayer);
+            //        }
+
+            //        var scr = new Score()
+            //        {
+            //            Rk = score.Rk,
+            //            BasketballPlayer = score.BasketballPlayer,
+            //            Tm = score.Tm,
+            //            Opp = score.Opp,
+            //            MP = score.MP,
+            //            FG = score.FG,
+            //            FGA = score.FGA,
+            //            FGper = score.FGper,
+            //            num3P = score.num3P,
+            //            num3PA = score.num3PA,
+            //            num3Pper = score.num3Pper,
+            //            FT = score.FT,
+            //            FTA = score.FTA,
+            //            ORB = score.ORB,
+            //            DRB = score.DRB,
+            //            AST = score.AST,
+            //            BLK = score.BLK,
+            //            TOV = score.TOV,
+            //            PF = score.PF,
+            //            PTS = score.PTS,
+            //            GmSc = score.GmSc,
+            //            Date = score.Date,
+            //            Player_additional = score.Player_additional
+            //        };
+
+            //        context2.Scores.Add(scr);
+            //    }
+
+            //    context2.SaveChanges();
+            //}
+
+
+            //var context = new ScoreContext();
+
+            //var joelsFromDB = context.Scores.Where(x=>x.BasketballPlayer.Name == "Joel Embiid").ToList();
+            //Viewer.ScoresViewer(joelsFromDB);
+
+            //context.SaveChanges();
+
+            //var context = new ScoreContext();
+            //var scoresFromDB = context.Scores.ToList();
+
+            //foreach (var score in scoresFromDB)
+            //{
+            //    context.Remove(score);
+            //}
+
+            //context.SaveChanges();
+
 
 
 
@@ -142,5 +306,6 @@ namespace NbaFantasyCalc
 
 
         }
+
     }
 }
